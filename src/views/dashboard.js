@@ -3,8 +3,12 @@ import axiosInstance from "../utils/axios";
 
 const Dashboard = () => {
   const getData = async () => {
-    const { data } = await axiosInstance.get("/admin/employees/all");
-    console.log(data);
+    try {
+      const { data } = await axiosInstance.get("/admin/employees/all");
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     getData();

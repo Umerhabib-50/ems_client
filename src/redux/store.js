@@ -1,9 +1,9 @@
 // store.js
 import { configureStore } from "@reduxjs/toolkit";
-import postReducer from "../redux/postSlice";
+import adminReducer from "../redux/adminSlice";
 const store = configureStore({
   reducer: {
-    posts: postReducer,
+    admin: adminReducer,
   },
 });
 
