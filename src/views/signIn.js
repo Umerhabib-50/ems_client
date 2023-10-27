@@ -11,14 +11,15 @@ import Container from "@mui/material/Container";
 import CustomInput from "../components/customInput";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { signIn } from "../redux/adminSlice";
 import axios from "axios";
+import { adminLoginAction } from "../redux/actions/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.admin);
-  console.log(data);
-
+  console.log(data?.adminLogin?.data);
   // react hook from setup
   const {
     control,
@@ -26,8 +27,14 @@ export default function SignIn() {
     handleSubmit,
   } = useForm();
 
+  React.useEffect(() => {
+    if (data?.adminLogin?.data) {
+      localStorage.setItem("token", data?.adminLogin?.data);
+      navigate("/");
+    }
+  }, [data?.adminLogin?.data]);
   const onSubmit = async (data) => {
-    dispatch(signIn(data));
+    dispatch(adminLoginAction(data));
     // try {
     //   const res = await axios.post(
     //     "http://localhost:5000/api/v1/admin/signin",

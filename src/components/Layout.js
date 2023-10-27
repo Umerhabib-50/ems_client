@@ -1,11 +1,21 @@
-import { Outlet } from "react-router-dom"
+import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const Layout = () => {
-    return (
-        <main className="App">
-            <Outlet />
-        </main>
-    )
-}
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
-export default Layout
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [navigate, token]);
+
+  return (
+    <main className="App">
+      <Outlet />
+    </main>
+  );
+};
+
+export default Layout;
