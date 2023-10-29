@@ -1,12 +1,10 @@
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-// import {composeWithDevTools} from 'redux-devtools-extension';
+// store.js
+import { configureStore } from "@reduxjs/toolkit";
+import adminReducer from "./adminSlice";
+const store = configureStore({
+  reducer: {
+    admin: adminReducer,
+  },
+});
 
-import rootReducer from "./reducers/rootReducer";
-
-export const store = createStore(
-  rootReducer,
-  applyMiddleware(thunk)
-
-  // composeWithDevTools(applyMiddleware(thunk)),
-);
+export default store;

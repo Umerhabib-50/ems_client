@@ -24,7 +24,7 @@ export const signIn = createAsyncThunk(
 const adminSlice = createSlice({
   name: "admin",
   initialState: {
-    data: [],
+    data: null,
     status: "idle",
     error: null,
   },
@@ -41,7 +41,7 @@ const adminSlice = createSlice({
       .addCase(signIn.rejected, (state, action) => {
         state.data = null;
         state.status = "failed";
-        state.error = action.payload; // Custom error message will be here
+        state.error = action.payload; 
       });
   },
 });

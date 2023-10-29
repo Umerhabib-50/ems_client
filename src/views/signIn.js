@@ -12,14 +12,14 @@ import CustomInput from "../components/customInput";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { adminLoginAction } from "../redux/actions/auth";
+import { signIn } from "../redux/adminSlice";
 import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.admin);
-  console.log(data?.adminLogin?.data);
+
   // react hook from setup
   const {
     control,
@@ -28,13 +28,24 @@ export default function SignIn() {
   } = useForm();
 
   React.useEffect(() => {
-    if (data?.adminLogin?.data) {
-      localStorage.setItem("token", data?.adminLogin?.data);
+    // const role = "admin";
+    // if (role === "employee") {
+    //   navigate("/employee");
+    // }
+    // if (role === "admin") {
+    //   navigate("/admin");
+    // }
+    // if (data?.data?.data) {
+    //   localStorage.setItem("token", data?.data?.data);
+    //   navigate("/");
+    // }
+    const token = true;
+    if (token) {
       navigate("/");
     }
-  }, [data?.adminLogin?.data]);
+  }, [data?.data?.data]);
   const onSubmit = async (data) => {
-    dispatch(adminLoginAction(data));
+    dispatch(signIn(data));
     // try {
     //   const res = await axios.post(
     //     "http://localhost:5000/api/v1/admin/signin",
