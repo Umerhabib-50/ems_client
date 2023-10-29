@@ -10,8 +10,8 @@
 import { Navigate, Outlet } from "react-router-dom";
 
 const RequireAuth = ({ role }) => {
-  const token = localStorage.getItem("token");
-
+  // const token = localStorage.getItem("token");
+  const token = true;
   // // Check the user's token and role to determine if they can access the route
   // if (token) {
   //   // Check if the user's role matches the required role for this route
@@ -29,7 +29,7 @@ const RequireAuth = ({ role }) => {
   // // If the user doesn't have the required token or role, navigate to the "unauthorized" route
   // return <Navigate to="/unauthorized" replace />;
 
-  return role == "admin" ? (
+  return role == "admin" && token ? (
     <Outlet />
   ) : token ? (
     <Navigate to="/unauthorized" replace />

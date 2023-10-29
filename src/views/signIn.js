@@ -40,7 +40,8 @@ export default function SignIn() {
     //   navigate("/");
     // }
     const token = true;
-    if (token) {
+    const role = "admin";
+    if (token && role) {
       navigate("/");
     }
   }, [data?.data?.data]);
