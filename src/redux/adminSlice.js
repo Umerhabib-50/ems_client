@@ -6,7 +6,7 @@ export const signIn = createAsyncThunk(
   async (signData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/admin/signin",
+        "http://localhost:5000/api/v1/employee/signin",
         signData
       );
 
@@ -33,15 +33,18 @@ const adminSlice = createSlice({
     builder
       .addCase(signIn.pending, (state) => {
         state.status = "loading";
+        state.data = null;
+        state.error = null;
       })
       .addCase(signIn.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.data = action.payload;
+        state.error = null;
       })
       .addCase(signIn.rejected, (state, action) => {
         state.data = null;
         state.status = "failed";
-        state.error = action.payload; 
+        state.error = action.payload;
       });
   },
 });

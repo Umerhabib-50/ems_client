@@ -11,7 +11,6 @@ import Container from "@mui/material/Container";
 import CustomInput from "../components/customInput";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { signIn } from "../redux/adminSlice";
 import { useNavigate } from "react-router-dom";
 
@@ -19,6 +18,7 @@ export default function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.admin);
+  console.log(data);
 
   // react hook from setup
   const {
@@ -28,34 +28,18 @@ export default function SignIn() {
   } = useForm();
 
   React.useEffect(() => {
-    // const role = "admin";
-    // if (role === "employee") {
-    //   navigate("/employee");
-    // }
-    // if (role === "admin") {
-    //   navigate("/admin");
-    // }
-    // if (data?.data?.data) {
-    //   localStorage.setItem("token", data?.data?.data);
-    //   navigate("/");
-    // }
-    const token = true;
-    const role = "admin";
-    if (token && role) {
-      navigate("/");
+    if (data?.data?.token) {
+      localStorage.setItem("token", data?.data?.token);
+      localStorage.setItem("allowedRoles", data?.data?.role);
     }
-  }, [data?.data?.data]);
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/employee");
+    }
+  }, [data]);
+
   const onSubmit = async (data) => {
     dispatch(signIn(data));
-    // try {
-    //   const res = await axios.post(
-    //     "http://localhost:5000/api/v1/admin/signin",
-    //     data
-    //   );
-    //   console.log("res.data", res.data);
-    // } catch (error) {
-    //   console.log("error from here", error);
-    // }
   };
 
   return (

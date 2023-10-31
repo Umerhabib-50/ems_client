@@ -10,6 +10,11 @@ import AllEmployees from "./views/allEmployees";
 import EmployeeDetails from "./views/employeeDetails";
 
 function App() {
+  const allowedRoles = {
+    admin: 1000,
+    employee: 2000,
+  };
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -19,13 +24,13 @@ function App() {
         <Route path="unauthorized" element={<Unauthorized />} />
 
         {/* we want to protect these routes */}
-        <Route element={<RequireAuth role={"admin"} />}>
+        <Route element={<RequireAuth allowedRoles={[allowedRoles.admin]} />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/allemp" element={<AllEmployees />} />
         </Route>
 
-        <Route element={<RequireAuth role={"employee"} />}>
-          <Route path="/" element={<EmpDashboard />} />
+        <Route element={<RequireAuth allowedRoles={[allowedRoles.employee]} />}>
+          <Route path="/employee" element={<EmpDashboard />} />
           <Route path="/details" element={<EmployeeDetails />} />
         </Route>
 
