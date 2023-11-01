@@ -34,7 +34,7 @@ export default function SignIn() {
     }
     const token = localStorage.getItem("token");
     if (token) {
-      navigate("/employee");
+      navigate("/");
     }
   }, [data]);
 

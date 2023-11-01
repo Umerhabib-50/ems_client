@@ -8,6 +8,7 @@ import EmpDashboard from "./views/empDashboard";
 import Unauthorized from "./views/unauthorized";
 import AllEmployees from "./views/allEmployees";
 import EmployeeDetails from "./views/employeeDetails";
+import "./App.css";
 
 function App() {
   const allowedRoles = {

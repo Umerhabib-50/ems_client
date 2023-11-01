@@ -1,35 +1,64 @@
-import React, { useEffect } from "react";
-import axiosInstance from "../utils/axios";
-import { useNavigate } from "react-router-dom";
+import * as React from "react";
+import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
 
-const Dashboard = () => {
-  const navigate = useNavigate();
-
-  // const getData = async () => {
-  //   try {
-  //     const { data } = await axiosInstance.get("/admin/employees/all");
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
+export default function Dashboard() {
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <br />
-      <button
-        onClick={() => {
-          navigate("/login");
-        }}
-      >
-        navigate to login page
-      </button>
-    </div>
+    <>
+      <div style={{ width: "100%" }}>
+        <Container
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          <Paper
+            style={{
+              width: "256px",
+              height: "256px",
+              marginTop: 10,
+            }}
+            elevation={3}
+          >
+            Umer
+          </Paper>
+          <Paper
+            style={{
+              width: "256px",
+              height: "256px",
+              marginTop: 10,
+            }}
+            elevation={3}
+          >
+            Umer
+          </Paper>
+          <Paper
+            style={{
+              width: "256px",
+              height: "256px",
+              marginTop: 10,
+            }}
+            elevation={3}
+          >
+            Umer
+          </Paper>
+          <Paper
+            style={{
+              width: "256px",
+              height: "256px",
+              marginTop: 10,
+            }}
+            elevation={3}
+          >
+            Umer
+          </Paper>
+        </Container>
+      </div>
+    </>
   );
-};
-
-export default Dashboard;
+}
