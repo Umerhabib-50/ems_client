@@ -111,7 +111,7 @@ export default function MyDrawer({ Outlet }) {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", width: "100%", height: "100%" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -253,7 +253,6 @@ export default function MyDrawer({ Outlet }) {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3, width: "100%" }}>
         <DrawerHeader />
-
         <Outlet />
       </Box>
     </Box>

@@ -12,16 +12,16 @@ export default function Dashboard() {
           style={{
             width: "100%",
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "space-evenly",
             alignItems: "center",
             flexWrap: "wrap",
           }}
         >
           <Paper
             style={{
-              width: "256px",
-              height: "256px",
-              marginTop: 10,
+              width: "250px",
+              height: "200px",
+              marginTop: 20,
             }}
             elevation={3}
           >
@@ -29,9 +29,9 @@ export default function Dashboard() {
           </Paper>
           <Paper
             style={{
-              width: "256px",
-              height: "256px",
-              marginTop: 10,
+              width: "250px",
+              height: "200px",
+              marginTop: 20,
             }}
             elevation={3}
           >
@@ -39,9 +39,9 @@ export default function Dashboard() {
           </Paper>
           <Paper
             style={{
-              width: "256px",
-              height: "256px",
-              marginTop: 10,
+              width: "250px",
+              height: "200px",
+              marginTop: 20,
             }}
             elevation={3}
           >
@@ -49,9 +49,9 @@ export default function Dashboard() {
           </Paper>
           <Paper
             style={{
-              width: "256px",
-              height: "256px",
-              marginTop: 10,
+              width: "250px",
+              height: "200px",
+              marginTop: 20,
             }}
             elevation={3}
           >
