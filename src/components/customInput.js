@@ -1,9 +1,13 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { IconButton, TextField } from "@mui/material";
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers";
 // hook form
 import { Controller } from "react-hook-form";
+import dayjs from "dayjs";
 
 const CustomInput = ({
   styles,
@@ -27,6 +31,31 @@ const CustomInput = ({
     name === "password" ? false : true
   );
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const currentDate = dayjs();
+
+  if (name === "date") {
+    return (
+      <Controller
+        rules={{ required: true }}
+        control={control}
+        name={name}
+        defaultValue={currentDate}
+        render={({ field: { onChange, value } }) => (
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DatePicker"]}>
+              <DatePicker
+                value={value}
+                label={label}
+                sx={{ width: "100%" }}
+                onChange={(newValue) => onChange(dayjs(newValue))}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+        )}
+      />
+    );
+  }
 
   return (
     <>

@@ -6,7 +6,7 @@ export const signIn = createAsyncThunk(
   async (signData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/admin/signin",
+        "http://192.168.1.59:5000/api/v1/admin/signin",
         signData
       );
 

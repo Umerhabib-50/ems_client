@@ -9,6 +9,7 @@ import Unauthorized from "./views/unauthorized";
 import AllEmployees from "./views/allEmployees";
 import EmployeeDetails from "./views/employeeDetails";
 import "./App.css";
+import CreateEmployee from "./views/createEmployee";
 
 function App() {
   const allowedRoles = {
@@ -28,6 +29,7 @@ function App() {
         <Route element={<RequireAuth allowedRoles={[allowedRoles.admin]} />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/allemp" element={<AllEmployees />} />
+          <Route path="/createEmp" element={<CreateEmployee />} />
         </Route>
 
         <Route element={<RequireAuth allowedRoles={[allowedRoles.employee]} />}>

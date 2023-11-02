@@ -89,6 +89,176 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
+// export default function MyDrawer({ Outlet }) {
+//   const theme = useTheme();
+//   const [open, setOpen] = React.useState(false);
+//   const [anchorEl, setAnchorEl] = React.useState(null);
+
+//   const handleDrawerOpen = () => {
+//     setOpen(true);
+//   };
+
+//   const handleDrawerClose = () => {
+//     setOpen(false);
+//   };
+
+//   const handleMenu = (event) => {
+//     setAnchorEl(event.currentTarget);
+//   };
+
+//   const handleClose = () => {
+//     setAnchorEl(null);
+//   };
+
+//   return (
+//     <Box sx={{ display: "flex", width: "100%", height: "100%" }}>
+//       <CssBaseline />
+//       <AppBar position="fixed" open={open}>
+//         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+//           <div
+//             style={{
+//               display: "flex",
+//               justifyContent: "center",
+//               alignItems: "center",
+//             }}
+//           >
+//             <IconButton
+//               color="inherit"
+//               aria-label="open drawer"
+//               onClick={handleDrawerOpen}
+//               edge="start"
+//               sx={{
+//                 marginRight: 5,
+//                 ...(open && { display: "none" }),
+//               }}
+//             >
+//               <MenuIcon />
+//             </IconButton>
+//             <Typography variant="h6" noWrap component="div">
+//               EMS
+//             </Typography>
+//           </div>
+//           <div>
+//             <IconButton
+//               size="large"
+//               aria-label="account of current user"
+//               aria-controls="menu-appbar"
+//               aria-haspopup="true"
+//               onClick={handleMenu}
+//               color="inherit"
+//             >
+//               <AccountCircle />
+//             </IconButton>
+//             <Menu
+//               id="menu-appbar"
+//               anchorEl={anchorEl}
+//               anchorOrigin={{
+//                 vertical: "top",
+//                 horizontal: "right",
+//               }}
+//               keepMounted
+//               transformOrigin={{
+//                 vertical: "top",
+//                 horizontal: "right",
+//               }}
+//               open={Boolean(anchorEl)}
+//               onClose={handleClose}
+//             >
+//               <MenuItem onClick={handleClose}>Profile</MenuItem>
+//               <MenuItem onClick={handleClose}>My account</MenuItem>
+//             </Menu>
+//           </div>
+//         </Toolbar>
+//       </AppBar>
+//       <Drawer variant="permanent" open={open}>
+//         <DrawerHeader>
+//           <div
+//             style={{
+//               display: "flex",
+//               justifyContent: "space-between",
+//               alignItems: "center",
+//               width: "100%",
+//             }}
+//           >
+//             <h4>Umair Habib</h4>
+//             <IconButton onClick={handleDrawerClose}>
+//               {theme.direction === "rtl" ? (
+//                 <ChevronRightIcon />
+//               ) : (
+//                 <ChevronLeftIcon />
+//               )}
+//             </IconButton>
+//           </div>
+//         </DrawerHeader>
+//         <Divider />
+//         <List>
+//           {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+//             <ListItem
+//               key={text}
+//               disablePadding
+//               sx={{ display: "block" }}
+//               onClick={handleDrawerClose}
+//             >
+//               <ListItemButton
+//                 sx={{
+//                   minHeight: 48,
+//                   justifyContent: open ? "initial" : "center",
+//                   px: 2.5,
+//                 }}
+//               >
+//                 <ListItemIcon
+//                   sx={{
+//                     minWidth: 0,
+//                     mr: open ? 3 : "auto",
+//                     justifyContent: "center",
+//                   }}
+//                 >
+//                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+//                 </ListItemIcon>
+//                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+//               </ListItemButton>
+//             </ListItem>
+//           ))}
+//         </List>
+//         <Divider />
+//         <List>
+//           {["All mail", "Trash", "Spam"].map((text, index) => (
+//             <ListItem
+//               key={text}
+//               disablePadding
+//               sx={{ display: "block" }}
+//               onClick={handleDrawerClose}
+//             >
+//               <ListItemButton
+//                 sx={{
+//                   minHeight: 48,
+//                   justifyContent: open ? "initial" : "center",
+//                   px: 2.5,
+//                 }}
+//               >
+//                 <ListItemIcon
+//                   sx={{
+//                     minWidth: 0,
+//                     mr: open ? 3 : "auto",
+//                     justifyContent: "center",
+//                   }}
+//                 >
+//                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+//                 </ListItemIcon>
+//                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+//               </ListItemButton>
+//             </ListItem>
+//           ))}
+//         </List>
+//       </Drawer>
+//       <Box component="main" sx={{ flexGrow: 1, p: 3, width: "100%" }}>
+//         <DrawerHeader />
+//         <Outlet />
+//       </Box>
+//     </Box>
+//   );
+// }
+
 export default function MyDrawer({ Outlet }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -110,8 +280,23 @@ export default function MyDrawer({ Outlet }) {
     setAnchorEl(null);
   };
 
+  const handleListItemIconHover = () => {
+    setOpen(true);
+  };
+
+  const handleListItemIconMouseLeave = () => {
+    setOpen(false);
+  };
+
   return (
-    <Box sx={{ display: "flex", width: "100%", height: "100%" }}>
+    <Box
+      sx={{
+        display: "flex",
+        width: "100%",
+        height: "100%",
+        overflow: "hidden",
+      }}
+    >
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -198,6 +383,8 @@ export default function MyDrawer({ Outlet }) {
               disablePadding
               sx={{ display: "block" }}
               onClick={handleDrawerClose}
+              onMouseEnter={handleListItemIconHover}
+              onMouseLeave={handleListItemIconMouseLeave}
             >
               <ListItemButton
                 sx={{
@@ -228,6 +415,8 @@ export default function MyDrawer({ Outlet }) {
               disablePadding
               sx={{ display: "block" }}
               onClick={handleDrawerClose}
+              onMouseEnter={handleListItemIconHover}
+              onMouseLeave={handleListItemIconMouseLeave}
             >
               <ListItemButton
                 sx={{
@@ -251,7 +440,7 @@ export default function MyDrawer({ Outlet }) {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, width: "100%" }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         <Outlet />
       </Box>
