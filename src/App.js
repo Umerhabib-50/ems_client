@@ -14,8 +14,12 @@ import Loans from "./views/loans";
 import Applyloan from "./views/applyloan";
 import Missing from "./views/missing";
 import AllLoans from "./views/allloans";
+import { useLocation, useNavigate } from "react-router-dom"
+import { useEffect } from "react";
+import LoanHistory from "./views/loanHistory";
 
 function App() {
+
   const allowedRoles = {
     admin: 1000,
     employee: 2000,
@@ -42,6 +46,8 @@ function App() {
           <Route path="/details" element={<EmployeeDetails />} />
           <Route path="/loan" element={<Loans />} />
           <Route path="/applyloan" element={<Applyloan />} />
+          <Route path="/loanhistory" element={<LoanHistory />} />
+
         </Route>
 
         {/* catch all */}

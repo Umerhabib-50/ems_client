@@ -26,13 +26,13 @@ export default function SignIn() {
   } = useForm();
 
   React.useEffect(() => {
-    console.log("location from useffevt signin", location);
+
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("allowedRoles");
     if (token) {
-      if (role === 1000) {
+      if (role === "1000") {
         navigate("/");
-      } else if (role === 2000) {
+      } else if (role === "2000") {
         navigate("/employee");
       }
     }
