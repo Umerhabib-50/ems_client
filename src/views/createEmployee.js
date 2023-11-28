@@ -7,15 +7,10 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import CustomInput from "../components/customInput";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { createEmployee } from "../services/adminService";
 
 export default function CreateEmployee() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   // react hook from setup
   const {
     control,

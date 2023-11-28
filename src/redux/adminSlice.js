@@ -6,7 +6,7 @@ export const signIn = createAsyncThunk(
   async (signData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://192.168.1.59:5000/api/v1/admin/signin",
+        "http://localhost:5000/api/v1/admin/signin",
         signData
       );
 
@@ -28,7 +28,7 @@ const adminSlice = createSlice({
     status: "idle",
     error: null,
   },
-  reducers: {},
+  reducers: {}, // Provide an empty object for reducers
   extraReducers: (builder) => {
     builder
       .addCase(signIn.pending, (state) => {

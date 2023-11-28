@@ -10,17 +10,15 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import CustomInput from "../components/customInput";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { signIn } from "../redux/adminSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 
 export default function SignIn() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const data = useSelector((state) => state.admin);
-  console.log(data);
+  const location = useLocation();
 
-  // react hook from setup
+  const [selectedRole, setSelectedRole] = React.useState("admin");
+
   const {
     control,
     formState: { errors },
@@ -28,18 +26,66 @@ export default function SignIn() {
   } = useForm();
 
   React.useEffect(() => {
-    if (data?.data?.data?.token) {
-      localStorage.setItem("token", data?.data?.data?.token);
-      localStorage.setItem("allowedRoles", data?.data?.data?.role);
-    }
+    console.log("location from useffevt signin", location);
     const token = localStorage.getItem("token");
+    const role = localStorage.getItem("allowedRoles");
     if (token) {
-      navigate("/");
+      if (role === 1000) {
+        navigate("/");
+      } else if (role === 2000) {
+        navigate("/employee");
+      }
     }
-  }, [data]);
+  }, [navigate, location.pathname]);
 
   const onSubmit = async (data) => {
-    dispatch(signIn(data));
+    console.log("data", data);
+
+    try {
+      const apiEndpoint =
+        selectedRole === "admin" ? "admin/signin" : "employee/signin";
+
+      const res = await axios.post(
+        `http://localhost:5000/api/v1/${apiEndpoint}`,
+        data
+      );
+
+      if (res?.data?.data?.token) {
+        const employeeData = res.data.data.employee;
+        console.log(employeeData);
+        const role = res?.data?.data?.role[0];
+        localStorage.setItem("token", res?.data?.data?.token);
+        localStorage.setItem("allowedRoles", role);
+        if (employeeData) {
+          localStorage.setItem("name", employeeData.name);
+          localStorage.setItem("email", employeeData.email);
+          localStorage.setItem("position", employeeData.position);
+          localStorage.setItem("salary", employeeData.salary);
+          localStorage.setItem("department", employeeData.department);
+          localStorage.setItem("date", employeeData.date);
+          localStorage.setItem("userid", employeeData._id);
+        }
+
+        if (role === 1000) {
+          navigate("/");
+        } else if (role === 2000) {
+          navigate("/employee");
+        }
+      }
+    } catch (error) {
+      // Handle error
+      if (error.response && error.response.status === 401) {
+        alert("Invalid credentials. Please try again.");
+      } else {
+        alert("An error occurred. Please try again later.");
+      }
+    }
+  };
+
+  const handleRoleToggle = () => {
+    setSelectedRole((prevRole) =>
+      prevRole === "admin" ? "employee" : "admin"
+    );
   };
 
   return (
@@ -57,7 +103,7 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign in as {selectedRole.toUpperCase()}
         </Typography>
         <Box
           component="form"
@@ -100,6 +146,15 @@ export default function SignIn() {
               </Link>
             </Grid>
           </Grid>
+
+          <Button
+            fullWidth
+            variant="outlined"
+            sx={{ mt: 2 }}
+            onClick={handleRoleToggle}
+          >
+            {`Switch to ${selectedRole === "admin" ? "Employee" : "Admin"}`}
+          </Button>
         </Box>
       </Box>
     </Container>

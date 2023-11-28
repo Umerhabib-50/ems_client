@@ -10,6 +10,10 @@ import AllEmployees from "./views/allEmployees";
 import EmployeeDetails from "./views/employeeDetails";
 import "./App.css";
 import CreateEmployee from "./views/createEmployee";
+import Loans from "./views/loans";
+import Applyloan from "./views/applyloan";
+import Missing from "./views/missing";
+import AllLoans from "./views/allloans";
 
 function App() {
   const allowedRoles = {
@@ -30,15 +34,18 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/allemp" element={<AllEmployees />} />
           <Route path="/createEmp" element={<CreateEmployee />} />
+          <Route path="/all_loans" element={<AllLoans />} />
         </Route>
 
         <Route element={<RequireAuth allowedRoles={[allowedRoles.employee]} />}>
           <Route path="/employee" element={<EmpDashboard />} />
           <Route path="/details" element={<EmployeeDetails />} />
+          <Route path="/loan" element={<Loans />} />
+          <Route path="/applyloan" element={<Applyloan />} />
         </Route>
 
         {/* catch all */}
-        {/* <Route path="*" element={<Missing />} /> */}
+        <Route path="*" element={<Missing />} />
       </Route>
     </Routes>
   );
