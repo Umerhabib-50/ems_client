@@ -5,7 +5,7 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import CustomInput from "../components/customInput";
+import CustomInput from "../../components/customInput";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 

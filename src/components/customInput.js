@@ -24,8 +24,10 @@ const CustomInput = ({
   inputIcon,
   search,
   edit = true,
+  render,
   pattern,
   label,
+  type,
 }) => {
   const [showPassword, setShowPassword] = React.useState(
     name === "password" ? false : true
@@ -47,13 +49,56 @@ const CustomInput = ({
               <DatePicker
                 value={value}
                 label={label}
-                sx={{ width: "100%" }}
+                sx={[styles, { width: "100%" }]}
                 onChange={(newValue) => onChange(dayjs(newValue))}
               />
             </DemoContainer>
           </LocalizationProvider>
         )}
       />
+    );
+  }
+
+  if (type === "date") {
+    return (
+      <Controller
+        rules={{ required: true }}
+        control={control}
+        name={name}
+        defaultValue={currentDate}
+        render={({ field: { onChange, value } }) => (
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DatePicker"]}>
+              <DatePicker
+                value={value}
+                label={label}
+                sx={[styles, { width: "100%" }]}
+                onChange={(newValue) => onChange(dayjs(newValue))}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+        )}
+      />
+    );
+  }
+
+  if (render) {
+    return (
+      <>
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+            pattern: {
+              value: pattern,
+              message: "Enter Valid Email",
+            },
+          }}
+          name={name}
+          defaultValue={defaultValue}
+          render={render}
+        />
+      </>
     );
   }
 

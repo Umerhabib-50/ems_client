@@ -1,10 +1,10 @@
 import * as React from "react";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
-import group from "../assets/images/group.png";
+import group from "../../assets/images/group.png";
 import { Link } from "react-router-dom";
 
-export default function EmpDashboard() {
+export default function Loans() {
   const sections = [
     // {
     //   title: "Employees",
@@ -17,14 +17,14 @@ export default function EmpDashboard() {
     //   navigate: "/loans",
     // },
     {
-      title: "My Details",
+      title: "Apply Loan",
       background: "linear-gradient(90deg, #90EE90, #32CD32)",
-      navigate: "/details",
+      navigate: "/applyloan",
     },
     {
-      title: "Loans",
+      title: "loan History",
       background: "linear-gradient(90deg, #FFA500, #FF8C00)",
-      navigate: "/loan",
+      navigate: "/loanhistory",
     },
   ];
 

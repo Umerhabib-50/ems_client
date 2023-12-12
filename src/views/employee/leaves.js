@@ -1,10 +1,10 @@
 import * as React from "react";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
-import group from "../assets/images/group.png";
+import group from "../../assets/images/group.png";
 import { Link } from "react-router-dom";
 
-export default function Loans() {
+export default function Leaves() {
   const sections = [
     // {
     //   title: "Employees",
@@ -17,14 +17,14 @@ export default function Loans() {
     //   navigate: "/loans",
     // },
     {
-      title: "Apply Loan",
+      title: "Apply Leave",
       background: "linear-gradient(90deg, #90EE90, #32CD32)",
-      navigate: "/applyloan",
+      navigate: "/applyleave",
     },
     {
-      title: "loan History",
+      title: "Leave History",
       background: "linear-gradient(90deg, #FFA500, #FF8C00)",
-      navigate: "/loanhistory",
+      navigate: "/leavehistory",
     },
   ];
 

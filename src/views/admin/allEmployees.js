@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllEmployees } from "../services/adminService";
+import { getAllEmployees } from "../../services/adminService";
 
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
