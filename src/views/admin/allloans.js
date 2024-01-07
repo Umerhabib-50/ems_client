@@ -92,20 +92,22 @@ const AllLoans = () => {
                 <td style={tableCellStyle}>{loan.email}</td>
                 <td style={tableCellStyle}>{loan.amount}</td>
                 <td style={tableCellStyle}>{loan.status}</td>
-                <td style={tableCellStyle}>
-                  <button
-                    style={acceptButtonStyle}
-                    onClick={() => handleAccept(loan._id)}
-                  >
-                    Accept
-                  </button>
-                  <button
-                    style={rejectButtonStyle}
-                    onClick={() => handleReject(loan._id)}
-                  >
-                    Reject
-                  </button>
-                </td>
+                {loan.status == "Pending" && (
+                  <td style={tableCellStyle}>
+                    <button
+                      style={acceptButtonStyle}
+                      onClick={() => handleAccept(loan._id)}
+                    >
+                      Accept
+                    </button>
+                    <button
+                      style={rejectButtonStyle}
+                      onClick={() => handleReject(loan._id)}
+                    >
+                      Reject
+                    </button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>

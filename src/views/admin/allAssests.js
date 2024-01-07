@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const AllLeaves = () => {
-  const [leaves, setLeaves] = useState([]);
+const AllAssets = () => {
+  const [assets, setAssets] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Function to fetch data from the API
@@ -10,9 +10,9 @@ const AllLeaves = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:5000/api/v1/admin/employees/leaves"
+        "http://localhost:5000/api/v1/admin/employees/assets"
       );
-      setLeaves(response.data.data);
+      setAssets(response.data.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -24,37 +24,37 @@ const AllLeaves = () => {
     fetchData();
   }, []);
 
-  const handleAccept = async (leaveId) => {
+  const handleAccept = async (assetId) => {
     try {
       setLoading(true);
-      await axios.patch(
-        "http://localhost:5000/api/v1/admin/employees/leaves/approve-reject",
+      const { data } = await axios.patch(
+        "http://localhost:5000/api/v1/admin/employees/assets/approve-reject",
         {
-          leaveId,
+          assetId,
           status: "accepted",
         }
       );
       fetchData();
     } catch (error) {
-      console.error("Error accepting leave:", error);
+      console.error("Error accepting asset:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleReject = async (leaveId) => {
+  const handleReject = async (assetId) => {
     try {
       setLoading(true);
-      await axios.patch(
-        "http://localhost:5000/api/v1/admin/employees/leaves/approve-reject",
+      const { data } = await axios.patch(
+        "http://localhost:5000/api/v1/admin/employees/assets/approve-reject",
         {
-          leaveId,
+          assetId,
           status: "rejected",
         }
       );
       fetchData();
     } catch (error) {
-      console.error("Error rejecting leave:", error);
+      console.error("Error rejecting asset:", error);
     } finally {
       setLoading(false);
     }
@@ -67,7 +67,7 @@ const AllLeaves = () => {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <h1>All Leaves</h1>
+      <h1>All Assets</h1>
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -80,35 +80,37 @@ const AllLeaves = () => {
         >
           <thead>
             <tr>
-              <th style={tableHeaderStyle}>Employee ID</th>
-              <th style={tableHeaderStyle}>Start Date</th>
-              <th style={tableHeaderStyle}>End Date</th>
-              <th style={tableHeaderStyle}>Reason</th>
-              <th style={tableHeaderStyle}>Leave Type</th>
+              <th style={tableHeaderStyle}>Asset ID</th>
+              <th style={tableHeaderStyle}>Name</th>
+              <th style={tableHeaderStyle}>Type</th>
               <th style={tableHeaderStyle}>Status</th>
+              <th style={tableHeaderStyle}>Request Date</th>
+              <th style={tableHeaderStyle}>Issue Date</th>
               <th style={tableHeaderStyle}>Action</th>
             </tr>
           </thead>
           <tbody>
-            {leaves.map((leave) => (
-              <tr key={leave._id} style={tableRowStyle}>
-                <td style={tableCellStyle}>{leave.employeeId}</td>
-                <td style={tableCellStyle}>{formatDate(leave.startDate)}</td>
-                <td style={tableCellStyle}>{formatDate(leave.endDate)}</td>
-                <td style={tableCellStyle}>{leave.reason}</td>
-                <td style={tableCellStyle}>{leave.leaveType}</td>
-                <td style={tableCellStyle}>{leave.status}</td>
-                {leave.status == "Pending" && (
+            {assets.map((asset) => (
+              <tr key={asset._id} style={tableRowStyle}>
+                <td style={tableCellStyle}>{asset._id}</td>
+                <td style={tableCellStyle}>{asset.name}</td>
+                <td style={tableCellStyle}>{asset.type}</td>
+                <td style={tableCellStyle}>{asset.status}</td>
+                <td style={tableCellStyle}>{formatDate(asset.requestDate)}</td>
+                <td style={tableCellStyle}>
+                  {asset?.issueDate ? formatDate(asset?.issueDate) : "N/A"}
+                </td>
+                {asset.status == "Pending" && (
                   <td style={tableCellStyle}>
                     <button
                       style={acceptButtonStyle}
-                      onClick={() => handleAccept(leave._id)}
+                      onClick={() => handleAccept(asset._id)}
                     >
                       Accept
                     </button>
                     <button
                       style={rejectButtonStyle}
-                      onClick={() => handleReject(leave._id)}
+                      onClick={() => handleReject(asset._id)}
                     >
                       Reject
                     </button>
@@ -159,4 +161,4 @@ const rejectButtonStyle = {
   borderRadius: "4px",
 };
 
-export default AllLeaves;
+export default AllAssets;

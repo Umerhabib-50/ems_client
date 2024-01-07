@@ -9,8 +9,9 @@ import CustomInput from "../../components/customInput";
 import { useForm } from "react-hook-form";
 import dayjs from "dayjs";
 import { createEmployee } from "../../services/adminService";
-
+import { useNavigate } from "react-router-dom";
 export default function CreateEmployee() {
+  const navigate = useNavigate();
   // react hook from setup
   const {
     control,
@@ -21,7 +22,10 @@ export default function CreateEmployee() {
   const onSubmit = async (data) => {
     data.date = dayjs(data.date).format("YYYY-MM-DD");
     const result = await createEmployee(data);
-    console.log("create result", result);
+    if (result?.success) {
+      alert("Employee Created Successfully");
+      navigate("/");
+    }
   };
 
   return (

@@ -19,7 +19,7 @@ export default function Dashboard() {
     {
       title: "Assets",
       background: "linear-gradient(90deg, #90EE90, #32CD32)",
-      navigate: "/assets",
+      navigate: "/all_assets",
     },
     {
       title: "Leaves",
@@ -42,6 +42,26 @@ export default function Dashboard() {
             flexWrap: "wrap",
           }}
         >
+          <div
+            style={{
+              width: "100%",
+              marginBottom: 20,
+            }}
+          >
+            <p>
+              "Introducing our advanced Admin Dashboard – the command center for
+              seamless management of your workforce. With this robust tool,
+              administrators can effortlessly oversee employee profiles, process
+              leave requests, manage loan and asset applications, and even
+              create new employee profiles. We are committed to providing our
+              administrators with the essential tools for efficient
+              decision-making and streamlined personnel management. Tailored for
+              your convenience, this upgraded dashboard empowers administrators
+              to review, accept, or reject leaves, loans, and asset requests
+              with ease. Take charge of your administrative journey – explore
+              the enhanced features today!"
+            </p>
+          </div>
           {sections.map((section, index) => (
             <div
               key={index}
@@ -53,9 +73,13 @@ export default function Dashboard() {
                 transition: "width 0.3s, height 0.3s",
                 width: hoveredIndex === index ? "270px" : "250px",
                 height: hoveredIndex === index ? "150px" : "130px",
+                marginBottom: 20,
               }}
             >
-              <Link to={section.navigate} style={{ textDecoration: "none" }}>
+              <Link
+                to={section.navigate}
+                style={{ textDecoration: "none", marginBottom: 10 }}
+              >
                 <Paper
                   style={{
                     width: "100%",

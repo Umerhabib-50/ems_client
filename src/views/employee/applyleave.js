@@ -12,8 +12,10 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { FormControl, InputLabel } from "@mui/material";
 import "./applyleave.css";
+import { useNavigate } from "react-router-dom";
 
 export default function ApplyLeave() {
+  const navigate = useNavigate();
   const {
     control,
     formState: { errors },
@@ -47,6 +49,9 @@ export default function ApplyLeave() {
 
       // Handle success
       alert("Leave application submitted successfully!");
+      if (response.data.success) {
+        navigate("/employee");
+      }
     } catch (error) {
       // Handle error
       console.error("Error submitting leave application:", error);

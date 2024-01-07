@@ -19,6 +19,11 @@ import AllLeaves from "./views/admin/allLeaves";
 import Leaves from "./views/employee/leaves";
 import ApplyLeave from "./views/employee/applyleave";
 import LeaveHistory from "./views/employee/leavehistory";
+import Assets from "./views/employee/assets";
+import ApplyAsset from "./views/employee/applyasset";
+import AssetHistory from "./views/employee/assethistory";
+import AllAssests from "./views/admin/allAssests";
+import ChangePassword from "./views/employee/changePassword";
 
 function App() {
   const allowedRoles = {
@@ -41,6 +46,7 @@ function App() {
           <Route path="/createEmp" element={<CreateEmployee />} />
           <Route path="/all_loans" element={<AllLoans />} />
           <Route path="/all_leaves" element={<AllLeaves />} />
+          <Route path="/all_assets" element={<AllAssests />} />
         </Route>
         {/* we want to protect these routes */}
         <Route element={<RequireAuth allowedRoles={[allowedRoles.employee]} />}>
@@ -52,6 +58,10 @@ function App() {
           <Route path="/leaves" element={<Leaves />} />
           <Route path="/applyleave" element={<ApplyLeave />} />
           <Route path="/leavehistory" element={<LeaveHistory />} />
+          <Route path="/assets" element={<Assets />} />
+          <Route path="/applyasset" element={<ApplyAsset />} />
+          <Route path="/assethistory" element={<AssetHistory />} />
+          <Route path="/changepassword" element={<ChangePassword />} />
         </Route>
 
         {/* catch all */}

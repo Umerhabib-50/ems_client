@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function Applyloan() {
+export default function ChangePassword() {
   const navigate = useNavigate();
   // react hook from setup
   const {
@@ -25,25 +25,23 @@ export default function Applyloan() {
     const userId = localStorage.getItem("userid");
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/v1/employee/apply/loan",
+      const response = await axios.patch(
+        "http://localhost:5000/api/v1/employee/changepassword",
         {
           userId,
-          name,
-          email,
-          amount: data.amount,
+          newPassword: data.password,
         }
       );
 
       // Handle success
-      alert("Loan application submitted successfully!");
+      alert("Password Updated successfully!");
       if (response.data.success) {
         navigate("/employee");
       }
     } catch (error) {
       // Handle error
-      console.error("Error submitting loan application:", error);
-      alert("Error submitting loan application. Please try again.");
+      console.error("Error Changing Password:", error);
+      alert("Error Changing Password. Please try again.");
     }
   };
 
@@ -60,7 +58,7 @@ export default function Applyloan() {
           <BorderColorIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Apply Loan
+          Change Password
         </Typography>
         <Box
           component="form"
@@ -71,9 +69,9 @@ export default function Applyloan() {
           <CustomInput
             styles={{ mb: 2 }}
             control={control}
-            name={"amount"}
+            name={"password"}
             errors={errors}
-            label="Amount"
+            label="New Password"
           />
 
           <Button
@@ -82,7 +80,7 @@ export default function Applyloan() {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Apply
+            Change Password
           </Button>
         </Box>
       </Box>

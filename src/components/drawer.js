@@ -18,7 +18,12 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import BadgeIcon from "@mui/icons-material/Badge";
+import CreditScoreIcon from "@mui/icons-material/CreditScore";
+import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
+import EnergySavingsLeafIcon from "@mui/icons-material/EnergySavingsLeaf";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import InfoIcon from "@mui/icons-material/Info";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
@@ -95,12 +100,16 @@ export default function MyDrawer({ Outlet }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const allowedRoles = localStorage.getItem("allowedRoles");
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
-  const handleDrawerClose = () => {
+  const handleDrawerClose = (params) => {
+    if (params) {
+      navigate(params);
+    }
     setOpen(false);
   };
 
@@ -149,7 +158,15 @@ export default function MyDrawer({ Outlet }) {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap component="div">
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                navigate(allowedRoles == "1000" ? "/" : "/employee");
+              }}
+            >
               EMS
             </Typography>
           </div>
@@ -179,7 +196,17 @@ export default function MyDrawer({ Outlet }) {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              {allowedRoles == "2000" && (
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                    navigate("/details");
+                  }}
+                >
+                  Profile
+                </MenuItem>
+              )}
+
               <MenuItem
                 onClick={() => {
                   localStorage.clear();
@@ -195,7 +222,7 @@ export default function MyDrawer({ Outlet }) {
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          <div
+          {/* <div
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -211,72 +238,112 @@ export default function MyDrawer({ Outlet }) {
                 <ChevronLeftIcon />
               )}
             </IconButton>
-          </div>
+          </div> */}
         </DrawerHeader>
         <Divider />
-        <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem
-              key={text}
-              disablePadding
-              sx={{ display: "block" }}
-              onClick={handleDrawerClose}
-              onMouseEnter={handleListItemIconHover}
-              onMouseLeave={handleListItemIconMouseLeave}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
+        {allowedRoles == "1000" ? (
+          <List>
+            {[
+              { title: "Employees", icon: BadgeIcon, navigate: "allemp" },
+              { title: "Loans", icon: CreditScoreIcon, navigate: "all_loans" },
+              {
+                title: "Assets",
+                icon: CardGiftcardIcon,
+                navigate: "all_assets",
+              },
+              {
+                title: "Leaves",
+                icon: EnergySavingsLeafIcon,
+                navigate: "all_leaves",
+              },
+            ].map((item, index) => (
+              <ListItem
+                key={item.text}
+                disablePadding
+                sx={{ display: "block" }}
+                onClick={() => {
+                  handleDrawerClose(item.navigate);
                 }}
+                onMouseEnter={handleListItemIconHover}
+                onMouseLeave={handleListItemIconMouseLeave}
               >
-                <ListItemIcon
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem
-              key={text}
-              disablePadding
-              sx={{ display: "block" }}
-              onClick={handleDrawerClose}
-              onMouseEnter={handleListItemIconHover}
-              onMouseLeave={handleListItemIconMouseLeave}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
+                    <item.icon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.title}
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+          <List>
+            {[
+              { title: "My Details", icon: InfoIcon, navigate: "/details" },
+              { title: "Loans", icon: CreditScoreIcon, navigate: "/loan" },
+              {
+                title: "Assets",
+                icon: CardGiftcardIcon,
+                navigate: "/assets",
+              },
+              {
+                title: "Leaves",
+                icon: EnergySavingsLeafIcon,
+                navigate: "/leaves",
+              },
+            ].map((item, index) => (
+              <ListItem
+                key={item.text}
+                disablePadding
+                sx={{ display: "block" }}
+                onClick={() => {
+                  handleDrawerClose(item.navigate);
                 }}
+                onMouseEnter={handleListItemIconHover}
+                onMouseLeave={handleListItemIconMouseLeave}
               >
-                <ListItemIcon
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
+                    <item.icon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.title}
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        )}
       </Drawer>
       <Box
         sx={{
